@@ -56,12 +56,12 @@
 				"inputs": [
 					{
 						"internalType": "uint256",
-						"name": "productId",
+						"name": "_productId",
 						"type": "uint256"
 					},
 					{
 						"internalType": "address",
-						"name": "productSeller",
+						"name": "_productSeller",
 						"type": "address"
 					}
 				],
@@ -73,33 +73,52 @@
 			{
 				"inputs": [
 					{
+						"internalType": "uint256",
+						"name": "_productId",
+						"type": "uint256"
+					}
+				],
+				"name": "checkProductOwnership",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
 						"internalType": "string",
-						"name": "partialTitle",
+						"name": "_partialTitle",
 						"type": "string"
 					},
 					{
 						"internalType": "string",
-						"name": "category",
+						"name": "_category",
 						"type": "string"
 					},
 					{
 						"internalType": "address",
-						"name": "owner",
+						"name": "_owner",
 						"type": "address"
 					},
 					{
 						"internalType": "uint256",
-						"name": "date",
+						"name": "_date",
 						"type": "uint256"
 					},
 					{
 						"internalType": "uint256",
-						"name": "startIndexForSearch",
+						"name": "_startIndexForSearch",
 						"type": "uint256"
 					},
 					{
 						"internalType": "uint256",
-						"name": "maxResults",
+						"name": "_maxResults",
 						"type": "uint256"
 					}
 				],
@@ -160,12 +179,12 @@
 				"inputs": [
 					{
 						"internalType": "uint256",
-						"name": "startIndexForSearch",
+						"name": "_startIndexForSearch",
 						"type": "uint256"
 					},
 					{
 						"internalType": "uint256",
-						"name": "maxResults",
+						"name": "_maxResults",
 						"type": "uint256"
 					}
 				],
@@ -226,7 +245,7 @@
 				"inputs": [
 					{
 						"internalType": "uint256",
-						"name": "productId",
+						"name": "_productId",
 						"type": "uint256"
 					}
 				],
@@ -272,7 +291,73 @@
 				"inputs": [
 					{
 						"internalType": "uint256",
-						"name": "productId",
+						"name": "_startIndexForSearch",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_maxResults",
+						"type": "uint256"
+					}
+				],
+				"name": "getOwnerProducts",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					},
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "id",
+								"type": "uint256"
+							},
+							{
+								"internalType": "address",
+								"name": "owner",
+								"type": "address"
+							},
+							{
+								"internalType": "string",
+								"name": "name",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "description",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "link",
+								"type": "string"
+							},
+							{
+								"internalType": "string[]",
+								"name": "tags",
+								"type": "string[]"
+							},
+							{
+								"internalType": "bool",
+								"name": "forSale",
+								"type": "bool"
+							}
+						],
+						"internalType": "struct MarketPlace.Product[]",
+						"name": "",
+						"type": "tuple[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_productId",
 						"type": "uint256"
 					}
 				],
@@ -296,46 +381,9 @@
 								"type": "uint256"
 							},
 							{
-								"components": [
-									{
-										"internalType": "uint256",
-										"name": "id",
-										"type": "uint256"
-									},
-									{
-										"internalType": "address",
-										"name": "owner",
-										"type": "address"
-									},
-									{
-										"internalType": "string",
-										"name": "name",
-										"type": "string"
-									},
-									{
-										"internalType": "string",
-										"name": "description",
-										"type": "string"
-									},
-									{
-										"internalType": "string",
-										"name": "link",
-										"type": "string"
-									},
-									{
-										"internalType": "string[]",
-										"name": "tags",
-										"type": "string[]"
-									},
-									{
-										"internalType": "bool",
-										"name": "forSale",
-										"type": "bool"
-									}
-								],
-								"internalType": "struct MarketPlace.Product",
-								"name": "product",
-								"type": "tuple"
+								"internalType": "uint256",
+								"name": "productId",
+								"type": "uint256"
 							}
 						],
 						"internalType": "struct MarketPlace.SellableProduct",
@@ -428,46 +476,9 @@
 						"type": "uint256"
 					},
 					{
-						"components": [
-							{
-								"internalType": "uint256",
-								"name": "id",
-								"type": "uint256"
-							},
-							{
-								"internalType": "address",
-								"name": "owner",
-								"type": "address"
-							},
-							{
-								"internalType": "string",
-								"name": "name",
-								"type": "string"
-							},
-							{
-								"internalType": "string",
-								"name": "description",
-								"type": "string"
-							},
-							{
-								"internalType": "string",
-								"name": "link",
-								"type": "string"
-							},
-							{
-								"internalType": "string[]",
-								"name": "tags",
-								"type": "string[]"
-							},
-							{
-								"internalType": "bool",
-								"name": "forSale",
-								"type": "bool"
-							}
-						],
-						"internalType": "struct MarketPlace.Product",
-						"name": "product",
-						"type": "tuple"
+						"internalType": "uint256",
+						"name": "productId",
+						"type": "uint256"
 					}
 				],
 				"stateMutability": "view",
@@ -610,10 +621,10 @@
 			]
 		},
 		"contracts/MarketPlace.sol": {
-			"keccak256": "0xccae54b23cddaeb36d89cfdb3dfee929b04e2493220cac6c40dce128bc477573",
+			"keccak256": "0x0fd0753f2f9a1d6e8db6cddcadd09d2ca27a5e79f8ecf2ba76edb3564cbd58aa",
 			"urls": [
-				"bzz-raw://be3a9f333e04a61e36311cfc96eae40d7367d2e7b975fa90d209d29921d5e9d0",
-				"dweb:/ipfs/Qmcs549JcSZRFLfiaB9yYNnvGnGViiKTgGeZz5bJXUT1k6"
+				"bzz-raw://c5eb64e729dce9c2efdde47a16b6d84c23dae12cc259df5d8006754fa772d754",
+				"dweb:/ipfs/QmZVnvcXv8mJU5yo9CRX3UtuueugH8ChnnKAitTP9uez7f"
 			]
 		},
 		"contracts/Ownable.sol": {
