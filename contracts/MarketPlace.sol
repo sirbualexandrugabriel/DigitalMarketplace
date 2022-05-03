@@ -106,9 +106,15 @@ contract MarketPlace is Ownable, ERC721 {
     }
 
     function getAllProductsForSale(uint256 _startIndexForSearch, uint256 _maxResults) external view returns (uint256, Product[] memory) {
-        Product[] memory productsForSale = new Product[](products.length);
-        uint productsForSaleCounter = 0;
+        uint resultSize = 0;
         uint i;
+        for (i = _startIndexForSearch; i < products.length && resultSize < _maxResults; i++) {
+            if (products[i].forSale) {
+                resultSize++;
+            }
+        }
+        Product[] memory productsForSale = new Product[](resultSize);
+        uint productsForSaleCounter = 0;
         for (i = _startIndexForSearch; i < products.length && productsForSaleCounter < _maxResults; i++) {
             if (products[i].forSale) {
                 productsForSale[productsForSaleCounter++] = products[i];
@@ -118,9 +124,39 @@ contract MarketPlace is Ownable, ERC721 {
     }
 
     function filterSellingProducts(string memory _partialTitle, string memory _category, address _owner, uint256 _date, uint256 _startIndexForSearch, uint256 _maxResults) external view returns (uint256, Product[] memory) {
+        uint i;
+        uint resultSize = 0;
+        for (i = _startIndexForSearch; i < products.length && resultSize < _maxResults; i++) {
+            if (!products[i].forSale) {
+                continue;
+            }
+            bool isValid = true;
+            bytes32 categoryHash = keccak256(abi.encodePacked(_category));
+            if (categoryHash != keccak256(abi.encodePacked(""))) {
+                string[] memory tags = products[i].tags;
+                uint j;
+                for (j = 0; j < tags.length; j++) {
+                    if (categoryHash == keccak256(abi.encodePacked(tags[j]))) {
+                        break;
+                    }
+                }
+                if (j >= tags.length) {
+                    isValid = false;
+                }
+            }
+            if (!(isValid &&
+                (_owner != address(0) || _owner == products[i].owner) &&
+                (_date != 0 || _date <= ownedSellableProducts[products[i].owner][i].datetime) &&
+                containsWord(_partialTitle, products[i].name)    // don't need to check for empty string since it's included into the product name
+            )) {
+                isValid = false;
+            }
+            if (isValid) {
+                resultSize++;
+            }
+        }
         Product[] memory productsForSale = new Product[](products.length);
         uint productsForSaleCounter = 0;
-        uint i;
         for (i = _startIndexForSearch; i < products.length && productsForSaleCounter < _maxResults; i++) {
             if (!products[i].forSale) {
                 continue;
@@ -188,9 +224,15 @@ contract MarketPlace is Ownable, ERC721 {
 
     function getOwnerProducts(uint256 _startIndexForSearch, uint256 _maxResults) external view returns (uint256, Product[] memory) {
         address owner = msg.sender;
-        Product[] memory ownerProducts = new Product[](products.length);
+        uint resultSize = 0;
+        uint i;
+        for (i = _startIndexForSearch; i < products.length && resultSize < _maxResults; i++) {
+            if (products[i].owner == owner) {
+                resultSize++;
+            }
+        }
+        Product[] memory ownerProducts = new Product[](resultSize);
         uint256 ownerProductsCounter = 0;
-        uint256 i;
         for (i = _startIndexForSearch; i < products.length && ownerProductsCounter < _maxResults; i++) {
             if (products[i].owner == owner) {
                 ownerProducts[ownerProductsCounter++] = products[i];
