@@ -11,11 +11,27 @@ import {
 } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
-export default function ProductItem({ product, onBuyProduct, loading }) {
+export default function ProductItem({
+  product,
+  onBuyProduct,
+  loading,
+  forSale,
+}) {
   const [hover, setHover] = useState(true);
 
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card
+      sx={{
+        maxWidth: 345,
+        background: "#082032",
+        transition: "all .2s ease-in-out",
+        boxShadow: "rgba(0, 0, 0, 0.1) 0px 4px 12px",
+        "&:hover": {
+          transform: "scale(1.02)",
+          boxShadow: "rgba(255, 76, 41, 0.1) 0px 4px 12px",
+        },
+      }}
+    >
       <CardMedia
         component="img"
         height="200"
@@ -36,25 +52,27 @@ export default function ProductItem({ product, onBuyProduct, loading }) {
           </Typography>
         </Tooltip>
       </CardContent>
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-        p={2}
-      >
-        <Typography color="primary" fontSize={24}>
-          {parseInt(product.price) + parseInt(product.fees)} WEI
-        </Typography>
-        <Fab
-          color="primary"
-          disabled={loading}
-          onClick={() => onBuyProduct(product, product.owner)}
+      {forSale && (
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+          p={2}
         >
-          {loading ? <CircularProgress /> : <ShoppingCartIcon />}
-        </Fab>
-      </Box>
+          <Typography color="primary" fontSize={24}>
+            {parseInt(product.price) + parseInt(product.fees)} WEI
+          </Typography>
+          <Fab
+            color="primary"
+            disabled={loading}
+            onClick={() => onBuyProduct(product, product.owner)}
+          >
+            {loading ? <CircularProgress /> : <ShoppingCartIcon />}
+          </Fab>
+        </Box>
+      )}
     </Card>
   );
 }

@@ -1009,10 +1009,10 @@
 			]
 		},
 		"contracts/MarketPlace.sol": {
-			"keccak256": "0x1d36faa4858904db8c2441e10ff142ef61255e56fae9d6036aded888f1c822ab",
+			"keccak256": "0x85a2feb65d08e6291437c49567a75af4b796de4a63d16f4d86e7a3b587524ce1",
 			"urls": [
-				"bzz-raw://bfb8baf7372c27080898cf406e70b9080e1790c5a0290bf8b31814262c5a2106",
-				"dweb:/ipfs/QmX1RAFCEnWf47WHd39VGFGshCQSYtQ1T9pxYUExa7z7BN"
+				"bzz-raw://6da6b166e2cb7bb8c82acfeb551015e7aacc053f4b8c11c5f1a56164620a6ab5",
+				"dweb:/ipfs/QmfAQf8PgR7GMCkTA7eYt1s8dU7DHrZBBNkVmn6A6qoRjx"
 			]
 		},
 		"contracts/Ownable.sol": {

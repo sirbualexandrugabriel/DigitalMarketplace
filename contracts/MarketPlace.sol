@@ -145,8 +145,8 @@ contract MarketPlace is Ownable, ERC721 {
                 }
             }
             if (!(isValid &&
-                (_owner != address(0) || _owner == products[i].owner) &&
-                (_date != 0 || _date <= ownedSellableProducts[products[i].owner][i].datetime) &&
+                (_owner == address(0) || _owner == products[i].owner) &&
+                (_date == 0 || _date <= ownedSellableProducts[products[i].owner][i].datetime) &&
                 containsWord(_partialTitle, products[i].name)    // don't need to check for empty string since it's included into the product name
             )) {
                 isValid = false;
@@ -176,8 +176,8 @@ contract MarketPlace is Ownable, ERC721 {
                 }
             }
             if (!(isValid &&
-                (_owner != address(0) || _owner == products[i].owner) &&
-                (_date != 0 || _date <= ownedSellableProducts[products[i].owner][i].datetime) &&
+                (_owner == address(0) || _owner == products[i].owner) &&
+                (_date == 0 || _date <= ownedSellableProducts[products[i].owner][i].datetime) &&
                 containsWord(_partialTitle, products[i].name)    // don't need to check for empty string since it's included into the product name
             )) {
                 isValid = false;
@@ -245,24 +245,24 @@ contract MarketPlace is Ownable, ERC721 {
         return products[_productId].owner;
     }
 
-    function getOwnerProductsNotForSale(uint256 _startIndexForSearch, uint256 _maxResults) external view returns (uint256, Product[] memory) {
-        address owner = msg.sender;
-        uint resultSize = 0;
-        uint i;
-        for (i = _startIndexForSearch; i < products.length && resultSize < _maxResults; i++) {
-            if (products[i].owner == owner && !products[i].forSale) {
-                resultSize++;
-            }
-        }
-        Product[] memory ownerProducts = new Product[](resultSize);
-        uint256 ownerProductsCounter = 0;
-        for (i = _startIndexForSearch; i < products.length && ownerProductsCounter < _maxResults; i++) {
-            if (products[i].owner == owner && !products[i].forSale) {
-                ownerProducts[ownerProductsCounter++] = products[i];
-            }
-        }
-        return (i, ownerProducts);
-    }
+    // function getOwnerProductsNotForSale(uint256 _startIndexForSearch, uint256 _maxResults) external view returns (uint256, Product[] memory) {
+    //     address owner = msg.sender;
+    //     uint resultSize = 0;
+    //     uint i;
+    //     for (i = _startIndexForSearch; i < products.length && resultSize < _maxResults; i++) {
+    //         if (products[i].owner == owner && !products[i].forSale) {
+    //             resultSize++;
+    //         }
+    //     }
+    //     Product[] memory ownerProducts = new Product[](resultSize);
+    //     uint256 ownerProductsCounter = 0;
+    //     for (i = _startIndexForSearch; i < products.length && ownerProductsCounter < _maxResults; i++) {
+    //         if (products[i].owner == owner && !products[i].forSale) {
+    //             ownerProducts[ownerProductsCounter++] = products[i];
+    //         }
+    //     }
+    //     return (i, ownerProducts);
+    // }
 
     /// @notice Count all NFTs assigned to an owner
     /// @dev NFTs assigned to the zero address are considered invalid, and this

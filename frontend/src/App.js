@@ -7,11 +7,13 @@ import { Box } from "@mui/material";
 import { useDispatch } from "react-redux";
 import Layout from "./screens/Layout";
 import { setUserAccount } from "./redux/UserAccount";
-import "./App.css";
+import "./app.css";
 
 const darkTheme = createTheme({
   palette: {
     mode: "dark",
+    primary: { main: "#FF4C29" },
+    secondary: { main: "#334756" },
   },
 });
 
@@ -26,11 +28,11 @@ function App() {
     setRemixContract(
       new web3.eth.Contract(
         ContractABI,
-        "0x874ef8BFE00d6f22eaaaDAF3175Ea3762dAd2aB2"
+        "0x94F897DE712ab38CD245F076d9fc31D822793E1E"
       )
     );
-    dispatch(setUserAccount("0x4f344bbB1dB1e694b89475E8A391F07f93D5559D"));
-  }, []);
+    dispatch(setUserAccount("0xefCA89D33587714F8F74Dc04eC71F17494885416"));
+  }, [dispatch]);
 
   // const setData = async (e) => {
   //   e.preventDefault();
@@ -51,7 +53,15 @@ function App() {
   return (
     <ThemeProvider theme={darkTheme}>
       <SnackbarProvider maxSnack={3}>
-        <Box className="App">
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            textAlign: "center",
+          }}
+        >
           <Layout contract={remixContract} />
         </Box>
       </SnackbarProvider>
